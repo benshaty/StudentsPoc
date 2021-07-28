@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <title>grades - Upload an Excel file</title>
+
+</head>
+
+<body>
+    <%- include('../partials/header'); %>
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="row text-center mb-2">
+                <div class="col">
+                    <h4>Upload a file</h4>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <form action="/file" enctype="multipart/form-data" method="post">
+                        <input type="file" name="uploadedFile">
+                        <input type="submit" id="btn" value="Upload">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.body.addEventListener("submit", async function (event) {
+            var input = document.querySelector('input[type="file"]');
+            var data = new FormData();
+            data.append('uploadedFile', input.files[0]);
+            event.preventDefault();
+            const form = event.target;
+            // casting to any here to satisfy tsc
+            // sending body as x-www-form-url-encoded
+            const result = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                })
+                .then((response) => response.json())
+                .then((json) => console.log(json))
+                .catch((error) => console.log(error));
+        });
+    </script>
+</body>
+
+</html>

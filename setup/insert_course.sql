@@ -1,0 +1,1 @@
+INSERT INTO `students_poc`.`courses` (`id`, `name`, `multiply`) VALUES (NULL, 'Math', '5'), (NULL, 'Java', '4')

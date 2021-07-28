@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+  <title><%- title %> - Table view</title>
+
+</head>
+
+<body>
+  <%- include('../partials/header'); %>
+  <div class="container">
+    <div class="header-wrapper">
+      <div class="row">
+        <div class="col-2">
+          <a href="" class="btn btn-outline-success mb-4" title="Add grade" data-tooltip="tooltip" data-toggle="modal" data-target="#modalAddGrade">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+          <% if (page_name == "all") { %>
+            <a href="/reports" class="btn btn-outline-primary mb-4" title="Reports" data-tooltip="tooltip">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </a>
+          <% } %>
+        </div>
+        <% if (page_name == "all") { %>
+        <div class="col-6">
+          <p>Your Avarage <%- avarage %></p>
+        </div>
+        <% } %>
+      </div>
+      <div class="row text-center mb-2">
+        <div class="col">
+          <table class="table table-bordered table-hover dt-responsive" id='dataTable'>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>course</th>
+                <th>grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i=0; i < data.length; i++) { %>
+              <tr>
+                <td><%= data[i].id %></td>
+                <td><%= data[i].username %></td>
+                <td><%= data[i].coursename %></td>
+                <td><%= data[i].grade %></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalAddGrade" tabindex="-1" role="dialog" aria-labelledby="Add new grade"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Add Grade</h4>
+          <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <% if (page_name == "allgrades") { %>
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            <select name="username" id="username" class="form-control validate">
+              <option class="sr-only">Select User</option>
+              <% for(var i=0; i < users.length; i++) { %>
+              <option><%= users[i].username %></option>
+              <% } %>
+            </select>
+            <label data-error="wrong" data-success="right" for="username">User name</label>
+          </div>
+          <% } %>
+
+          <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <select name="course" id="course" class="form-control validate">
+              <option class="sr-only">Select Course</option>
+              <% for(var i=0; i < courses.length; i++) { %>
+              <option value="<%= courses[i].id %>"><%= courses[i].name %></option>
+              <% } %>
+            </select>
+            <label data-error="wrong" data-success="right" for="course">Course</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa  fa-book prefix grey-text"></i>
+            <input type="number" id="grade" class="form-control validate" min="0" max="100">
+            <label data-error="wrong" data-success="right" for="pass">Grade</label>
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button class="btn btn-deep-orange" id="saveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ActiveUsername = '<%- activeUser.username %>';
+  </script>
+  <% if (page_name == "allgrades") { %>
+  <script>
+    const AllUsersPage = true;
+  </script>
+  <% } %>
+  <script src="assets/js/grades.js" ></script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <title><%- title %> - Users</title>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="assets/css/crud_table.css">
+    <script src="assets/js/users_crud_table.js" ></script>
+</head>
+
+<body>
+    <%- include('../partials/header'); %>
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="row text-center mb-2">
+                <div class="col">
+                    <h4>Welcome my <%- data.username %></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-lg">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2>Users</h2>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add
+                                New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>User Level</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <% for(var i=0; i < data.length; i++) { %>
+                        <tr>
+                            <td><%= data[i].id %></td>
+                            <td><%= data[i].username %></td>
+                            <td><%= data[i].email %></td>
+                            <td><%= data[i].userlevel %></td>
+                            <td><%= data[i].password %></td>
+                            <td>
+                                <a class="add" title="Add" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE03B;</i></a>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE254;</i></a>
+                                <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                        class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
