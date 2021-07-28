@@ -13,7 +13,7 @@ let connection;
 function connect(){
     connection = mysql.createConnection(dbConfig);
     return new Promise((resolve, reject) => {
-        connection.connect((err)=>{err?reject():resolve()});
+        connection.connect((err)=>{err?reject("cant connect to DB!"):resolve()});
     });
 }
 function runQuery(sqlQuery) {
