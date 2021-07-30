@@ -7,7 +7,7 @@ p.o.c full stack web application.
 - Client sedi: precompiled ejs pages.
 
 ## Documents
-- [system design](systemdesign.md){:target="_blank"}
+- [system design](systemdesign.md)
 
 ## Usage
 
@@ -31,9 +31,9 @@ npm start
 ```
 
 ## Links
-- [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/){:target="_blank"}
-- [Node.js cheat sheet](https://overapi.com/nodejs){:target="_blank"}
-- [EJS cheat sheet](https://onecompiler.com/cheatsheets/ejs-embedded-javascript-templates){:target="_blank"}
-- [JavaScript cheat sheet](https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet){:target="_blank"} 
+- [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)
+- [Node.js cheat sheet](https://overapi.com/nodejs)
+- [EJS cheat sheet](https://onecompiler.com/cheatsheets/ejs-embedded-javascript-templates)
+- [JavaScript cheat sheet](https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet)
 
 ***Have Fun And Keep Coding***
