@@ -21,32 +21,52 @@
             <div class="col">
                 <div id="barchart"></div>
             </div>
+            <div class="col">
+                <div id="chart_div" style="width: 400px; height: 120px;"></div>
+            </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        let grades =  <%- JSON.stringify(grades) %>;
-        var gradesArray = [["Course","Grade", { role: 'style' }]];
-        for (const key in grades) {
-            gradesArray.push([grades[key].name,grades[key].grade,`#${Math.floor(Math.random()*16777215).toString(16)}`])
-        }
-        // Load google charts
+        // avg grades chart
+        let grades = <%- JSON.stringify(grades) %>;
+
+       
+       // Load google charts
         google.charts.load('current', {
-            'packages': ['corechart', 'bar']
+            'packages': ['corechart', 'bar', 'gauge']
         });
+
+       
+
+
+        var gradesArray = [
+            ["Course", "Grade", {
+                role: 'style'
+            }]
+        ];
+        var gradesGuageArray = [
+            ['Label', 'Value']
+        ];
+        for (const key in grades) {
+            gradesArray.push([grades[key].name, grades[key].grade,
+                `#${Math.floor(Math.random()*16777215).toString(16)}`]);
+            gradesGuageArray.push([grades[key].name, grades[key].grade]);
+        }
         google.charts.setOnLoadCallback(drawChart);
+
 
         // Draw the chart and set the chart values
         function drawChart() {
-            console.log(gradesArray);
-            var dataChart = google.visualization.arrayToDataTable(gradesArray);
+            var dataChartBar = google.visualization.arrayToDataTable(gradesArray);
+            var dataChartGuage = google.visualization.arrayToDataTable(gradesGuageArray);
 
             // Optional; add a title and set the width and height of the chart
-            var options = {
-                'legend': 'none',
-                'title': 'Avarage Grade By Course',
-                'width': 550,
-                'height': 400,
+            var optionsBar = {
+                legend: 'none',
+                titles: 'Avarage Grade By Course',
+                width: 550,
+                height: 400,
                 hAxis: {
                     title: 'Grade',
                     minValue: 0
@@ -56,9 +76,25 @@
                 }
             };
 
+            var optionsGuage = {
+                width: 400,
+                height: 220,
+                redFrom: 0,
+                redTo: 55,
+                yellowFrom: 55,
+                yellowTo: 90,
+                greenFrom: 90,
+                greenTo: 100,
+                minorTicks: 5
+            };
+
             // Display the chart inside the <div> element with id="barchart"
-            var chart = new google.visualization.BarChart(document.getElementById('barchart'));
-            chart.draw(dataChart, options);
+            var chartBar = new google.visualization.BarChart(document.getElementById('barchart'));
+            chartBar.draw(dataChartBar, optionsBar);
+            var chartGuage = new google.visualization.Gauge(document.getElementById('chart_div'));
+            chartGuage.draw(dataChartGuage, optionsGuage);
+
+
         }
     </script>
 </body>

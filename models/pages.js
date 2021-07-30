@@ -24,9 +24,9 @@ router.get("/", (request, response) => {
 });
 
 router.get("/reports", (request, response) => {
+    appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin) {
         appUtils.extendCookie(request);
-        appUtils.setCookieURL(request);
         response.status(200); // 200 is OK 
         /*
         SQL query:
@@ -116,8 +116,8 @@ router.get('/all', (request, response) => {
 
 // view all users grades (admin only)
 router.get('/allgrades', (request, response) => {
+    appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin && request.session.userLevel == 2) {
-        appUtils.setCookieURL(request);
         appUtils.extendCookie(request);
         db.runQuery("SELECT * FROM `courses`")
             .then(
