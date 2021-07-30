@@ -4,7 +4,7 @@
 <head>
     <%- include('../partials/head'); %>
     <title><%- title %> - Reports</title>
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -17,7 +17,50 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div id="barchart"></div>
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        let grades =  <%- JSON.stringify(grades) %>;
+        var gradesArray = [["Course","Grade", { role: 'style' }]];
+        for (const key in grades) {
+            gradesArray.push([grades[key].name,grades[key].grade,`#${Math.floor(Math.random()*16777215).toString(16)}`])
+        }
+        // Load google charts
+        google.charts.load('current', {
+            'packages': ['corechart', 'bar']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Draw the chart and set the chart values
+        function drawChart() {
+            console.log(gradesArray);
+            var dataChart = google.visualization.arrayToDataTable(gradesArray);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {
+                'legend': 'none',
+                'title': 'Avarage Grade By Course',
+                'width': 550,
+                'height': 400,
+                hAxis: {
+                    title: 'Grade',
+                    minValue: 0
+                },
+                vAxis: {
+                    title: 'Course'
+                }
+            };
+
+            // Display the chart inside the <div> element with id="barchart"
+            var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+            chart.draw(dataChart, options);
+        }
+    </script>
 </body>
 
 </html>

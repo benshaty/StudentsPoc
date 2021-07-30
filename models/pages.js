@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
-const multer = require('multer');
 const appUtils = require('./appUtils');
-const {
-    request
-} = require('express');
-const forms = multer({
-    dest: './upload/'
-});
 
 // homepage & login
 router.get("/", (request, response) => {
@@ -35,14 +28,32 @@ router.get("/reports", (request, response) => {
         appUtils.extendCookie(request);
         appUtils.setCookieURL(request);
         response.status(200); // 200 is OK 
-        response.render("pages/reports", {
-            data: request.session,
-            page_name: 'reports',
-            activeUser: {
-                username: request.session.username,
-                userLevel: request.session.userLevel
-            }
-        });
+        /*
+        SQL query:
+            SELECT `courses`.`name`, CAST(AVG(`grades`.`grade`) AS DECIMAL(10,2)) FROM `grades` INNER JOIN `courses` ON `grades`.`courseid` = `courses`.`id` INNER JOIN `users` ON `grades`.`userid` = `users`.`id` WHERE `userid` = 1 GROUP BY `courses`.`name`
+        */
+            db.runQuery("SELECT `courses`.`name`, CAST(AVG(`grades`.`grade`) AS DECIMAL(10,2)) AS `grade` FROM `grades` INNER JOIN `courses` ON `grades`.`courseid` = `courses`.`id` INNER JOIN `users` ON `grades`.`userid` = `users`.`id` WHERE `username` = '"+request.session.username+"' GROUP BY `courses`.`name`")
+            .then(
+                (res) => {
+                    response.status(200); // 200 is OK 
+                    response.render("pages/reports", {
+                        data: request.session,
+                        page_name: 'reports',
+                        grades: res,
+                        activeUser: {
+                            username: request.session.username,
+                            userLevel: request.session.userLevel
+                        }
+                    });
+                }
+            )
+            .catch(
+                (err) => {
+                    response.status(400); // 400 is NOT OK 
+                    response.send(err);
+                }
+            )
+        
     } else {
         response.redirect("/");
     }

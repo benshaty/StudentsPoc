@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const db = require('./db');
-const tools = require('./appUtils');
-const {
-    response
-} = require('express');
 const appUtils = require('./appUtils');
 
 
@@ -33,7 +29,7 @@ router.post('/auth', function (request, response) {
         db.runQuery(`SELECT * FROM users WHERE username = '${username}'`)
             .then(
                 (res) => {
-                    if (res.length > 0 && tools.compairPass(password, res[0].password)) {
+                    if (res.length > 0 && appUtils.compairPass(password, res[0].password)) {
                         request.session.loggedin = true;
                         request.session.username = username;
                         request.session.cookie.maxAge = Date.now() + (10 * 1000);

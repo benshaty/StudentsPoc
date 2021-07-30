@@ -1,19 +1,35 @@
 # Students grades P.O.C
 
-This is the Repo for the Student grades system.
+p.o.c full stack web application.
+<img src="./public/images/logo.jpg" alt="logo" width="200"/>
+- Backend server: Node.js + Express.
+- Client sedi: precompiled ejs pages.
 
-# Usage
-Clone the repo 
+## Usage
+
+1. Clone the repo 
 ```bash
 git clone https://github.com/benshaty/StudentsPoc.git
 cd StudentsPoc
 ```
-Install the dependencies.
+2. Install the dependencies.
 ```bash
 npm install
 ```
-Run the System
+3. Install and run Xampp (Apache, Mysql).
+4. Setup the Database and Sample data
+```bash
+node .\setup\setup_script.js
+```
+5. Run the System
 ```bash
 npm start
 ```
-Have Fun And Keep Coding
+
+## Links
+- [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)
+- [Node.js cheat sheet](https://overapi.com/nodejs)
+- [EJS cheat sheet](https://onecompiler.com/cheatsheets/ejs-embedded-javascript-templates)
+- [JavaScript cheat sheet](https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet) 
+
+***Have Fun And Keep Coding***
