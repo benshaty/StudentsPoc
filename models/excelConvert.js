@@ -1,6 +1,8 @@
+// File dependencies
 const XLSX = require('xlsx');
 const fs = require('fs').promises;
 
+// Async func to extract json from xlsx file
 async function getJsonFromExcel(fileBuffer) {
     console.log(fileBuffer.path);
     try {

@@ -1,9 +1,10 @@
+// File dependencies
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
 const appUtils = require('./appUtils');
 
-// homepage & login
+// Homepage & Login
 router.get("/", (request, response) => {
     if (appUtils.checkCookie(request) && request.session.loggedin) {
         appUtils.extendCookie(request);
@@ -23,6 +24,7 @@ router.get("/", (request, response) => {
     }
 });
 
+// Reports
 router.get("/reports", (request, response) => {
     appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin) {
@@ -59,12 +61,13 @@ router.get("/reports", (request, response) => {
     }
 });
 
+// Logoff
 router.get("/logoff", (request, response) => {
     request.session.destroy();
     response.redirect("/");
 })
 
-// view all user grades
+// View all user grades
 router.get('/all', (request, response) => {
     appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin) {
@@ -168,7 +171,7 @@ router.get('/allgrades', (request, response) => {
     }
 })
 
-
+// Manage users (admin only)
 router.get("/users", (request, response) => {
     appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin && request.session.userLevel == 2) {
@@ -200,6 +203,7 @@ router.get("/users", (request, response) => {
     }
 });
 
+// Manage courses (admin only)
 router.get("/courses", (request, response) => {
     appUtils.setCookieURL(request);
     if (appUtils.checkCookie(request) && request.session.loggedin && request.session.userLevel == 2) {

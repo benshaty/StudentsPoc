@@ -1,27 +1,10 @@
+// File dependencies
 var express = require('express');
 var router = express.Router();
 const db = require('./db');
 const appUtils = require('./appUtils');
 
-
-
-
-router.get("/json", (request, response) => {
-    db.runQuery("SELECT * FROM users")
-        .then(
-            (res) => {
-                response.status(200); // 200 is OK 
-                response.send(res);
-            }
-        )
-        .catch(
-            (err) => {
-                response.status(400); // 400 is NOT OK 
-                response.send(err);
-            }
-        )
-})
-
+// Login
 router.post('/auth', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
@@ -54,7 +37,7 @@ router.post('/auth', function (request, response) {
     }
 });
 
-//insert user
+// Add user
 router.post("/add_user",
     (request, response) => {
         db.runQuery("INSERT INTO `users` (`username`, `password`, `email`, `userlevel`) " + `VALUES ('${request.body.username}','${appUtils.createHash(request.body.password)}','${request.body.email}','${request.body.userLevel}'); `)
@@ -76,7 +59,7 @@ router.post("/add_user",
     }
 );
 
-//insert grade
+// Add grade
 router.post("/add_grade",
     (request, response) => {
         db.runQuery("SELECT `id` from `users` WHERE `username` = '" + request.body.username + "'")
@@ -113,7 +96,7 @@ router.post("/add_grade",
     }
 );
 
-// edit user
+// Update user
 router.put("/edit_user/:user", (request, response) => {
     if (request.params.user != '1') {
         let sql = "";
@@ -143,7 +126,7 @@ router.put("/edit_user/:user", (request, response) => {
 
 });
 
-// delete user
+// Delete user
 router.delete("/delete_user/:usr", (request, response) => {
     if (request.params.usr == '0') {
         response.status(200);
@@ -175,7 +158,7 @@ router.delete("/delete_user/:usr", (request, response) => {
     }
 })
 
-// delete course
+// Delete course
 router.delete("/delete_course/:course", (request, response) => {
     db.runQuery(`DELETE FROM courses WHERE id='${request.params.course}';`)
         .then(
@@ -195,7 +178,7 @@ router.delete("/delete_course/:course", (request, response) => {
 })
 
 
-// edit course
+// Update course
 router.put("/edit_course/:course", (request, response) => {
     let sql = "UPDATE `courses` SET `name` = '"+ request.body.name+"', `multiply` = '"+request.body.multiply + "' WHERE `courses`.`id` = '" + request.params.course + "'";
     db.runQuery(sql)
@@ -216,7 +199,7 @@ router.put("/edit_course/:course", (request, response) => {
 });
 
 
-//insert user
+// Add course
 router.post("/add_course",
     (request, response) => {
         db.runQuery("INSERT INTO `courses` (`name`, `multiply`) " + `VALUES ('${request.body.name}','${request.body.multiply}'); `)
@@ -237,4 +220,6 @@ router.post("/add_course",
 
     }
 );
+
+
 module.exports = router;
