@@ -4,7 +4,7 @@ p.o.c full stack web application.
 
 <img src="./public/images/logo.jpg" alt="logo" width="200"/>
 - Backend server: Node.js + Express.
-- Client sedi: precompiled ejs pages.
+- Client side: precompiled ejs pages.
 
 ## Documents
 - [system design](systemdesign.md)
